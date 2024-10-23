@@ -1,0 +1,14 @@
+#table-container {
+    max-width: 75%;
+    margin: 0 auto;
+}
+
+#search_input {
+    float: right;
+    display: none;
+    width: 15rem;
+}
+
+#no_data_display {
+    display: grid;
+}
