@@ -18,13 +18,12 @@ export default function Nav() {
             <a className="navbar-item" href="/home">
               <img src={weahterForecast}></img>
             </a>
-            <a className="navbar-item" /* href="https://github.com/Will-Martinez/Supply_Sage" */>
+            <a className="navbar-item" href="https://github.com/Will-Martinez/weather-app-frontend">
               <strong>Weather Forecast app</strong>
             </a>
           </div>
         </div>
       </div>
     </nav>
-
     )
 }

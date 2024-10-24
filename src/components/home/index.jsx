@@ -1,13 +1,7 @@
 import "./index.css";
 import jobs from "../../public/images/jobs.png"
-import users from "../../public/images/users.png";
 import reports from "../../public/images/reports.png";
 import Footer from "../footer";
-
-function redirectToUsersTable()
-{
-    window.location.href = "/users";
-}
 
 function redirectToReports()
 {
@@ -44,23 +38,6 @@ export default function Home() {
                         </p>
                         <p>
                             <button type="button" className="button is-primary is-rounded is-normal is-outlined">
-                                Access
-                            </button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div className="card" id="card_users">
-                <div className="card-content">
-                    <img src={users}></img>
-                    <div className="content">
-                        <hr></hr>
-                        <p>
-                            <h4>Users Module</h4>
-                        </p>
-                        <p>
-                            <button onClick={redirectToUsersTable} type="button" className="button is-primary is-rounded is-normal is-outlined">
                                 Access
                             </button>
                         </p>
