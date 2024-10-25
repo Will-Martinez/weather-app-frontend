@@ -1,6 +1,5 @@
 import Home from "../home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import UsersTable from "../Table";
 import WeatherForecastChart from "../dashboard";
 
 const router = createBrowserRouter([
