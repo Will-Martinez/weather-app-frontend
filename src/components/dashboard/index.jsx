@@ -3,7 +3,8 @@ import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import toast from 'react-hot-toast';
 import getLocationsData from '../../API/services/locations/getLocations';
-import getWeatherForecast from '../../API/services/forecast/getForecast';
+import getAndCreateWeatherForecast from '../../API/services/forecast/getCreateForecast';
+import LocationModal from '../modals/register-location';
 
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
@@ -31,6 +32,7 @@ const WeatherForecastChart = () => {
         ],
     });
     const [currentPage, setCurrentPage] = useState(0);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const itemsPerPage = 20;
 
     useEffect(() => {
@@ -56,7 +58,7 @@ const WeatherForecastChart = () => {
                 };
 
                 try {
-                    const response = await getWeatherForecast(locationData);
+                    const response = await getAndCreateWeatherForecast(locationData);
                     const forecastData = response.data;
 
                     const temperatures = forecastData.temperature;
@@ -87,7 +89,7 @@ const WeatherForecastChart = () => {
                         ],
                     });
 
-                    setCurrentPage(0); // Reset to the first page when new data is fetched
+                    setCurrentPage(0);
                 } catch (error) {
                     toast.error(`Error fetching weather data: ${error.message}`);
                 }
@@ -145,8 +147,22 @@ const WeatherForecastChart = () => {
         },
     };
 
+    const handleRegisterLocation = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <div style={{ marginBottom: '1rem' }}>
+                <button onClick={handleRegisterLocation} className="button is-primary is-rounded is-outlined">
+                    Register Location
+                </button>
+            </div>
+
             <select
                 onChange={handleCityChange}
                 value={selectedCity?.uuid || ''}
@@ -161,7 +177,7 @@ const WeatherForecastChart = () => {
             </select>
 
             <div style={{ marginTop: '1rem', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <button onClick={handlePreviousPage} disabled={currentPage === 0} className="button" style={{ marginRight: '1rem' }}>
+                <button onClick={handlePreviousPage} disabled={currentPage === 0} className="button is-primary is-rounded is-outlined" style={{ marginRight: '1rem' }}>
                     Previous
                 </button>
                 <label htmlFor="page-select" style={{ marginRight: '0.5rem' }}>Go to page:</label>
@@ -178,7 +194,7 @@ const WeatherForecastChart = () => {
                         </option>
                     ))}
                 </select>
-                <button onClick={handleNextPage} disabled={(currentPage + 1) * itemsPerPage >= weatherData.labels.length} className="button">
+                <button onClick={handleNextPage} disabled={(currentPage + 1) * itemsPerPage >= weatherData.labels.length} className="button is-primary is-rounded is-outlined">
                     Next
                 </button>
             </div>
@@ -191,12 +207,12 @@ const WeatherForecastChart = () => {
                 <p style={{ marginTop: '1rem', color: 'red' }}>No data available</p>
             )}
 
-            {/* Renderiza o gráfico paginado se uma cidade for selecionada */}
             {selectedCity && (
                 <>
                     <Bar data={paginatedWeatherData()} options={options} />
                 </>
             )}
+            {isModalOpen && <LocationModal onClose={closeModal} />}
         </div>
     );
 };
