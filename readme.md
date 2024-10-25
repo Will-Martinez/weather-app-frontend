@@ -12,6 +12,8 @@ link para o backend: https://github.com/Will-Martinez/weather-app-backend
 
 
 ## Como inciar o frontend
+- Abra o terminal no diretório onde foi clonado o projeto e execute o comando "npm install".
+
 - Primeiramente, é necessário ajustar o arquivo de API que fica no diretório src/API/api.js. Dentro dele existe o endpoint do banckend, cujo dependendo
   da porta configurada, será necessário realizar a mudança na string
     ![image](./repo-prints/api_backend.PNG)
